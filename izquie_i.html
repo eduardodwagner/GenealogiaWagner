@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<!-- ubicar aqui para que no aparezca el banner  -->
+
+
+<TITLE>Index</TITLE>
+
+<!-- ##### begin OAS browser test ##### -->
+<SCRIPT LANGUAGE="JavaScript"> <!-- 
+_version=10; //--> </SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.1"> <!--
+_version=11;
+if (navigator.userAgent.indexOf('Mozilla/3') != -1){
+_version=10;} 
+// --> 
+</SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript"> <!-- 
+
+<!-- here are oas site, page, and random number variables  -->
+var oas='http://infovia.com.ar/edwagner/';
+var sitepage = "www.infovia.com.ar/";
+var RN = new String (Math.random());
+var RNS = RN.substring (2, 11);
+
+<!-- here is the ad insertion function -->
+function DisplayAds (pagina, position, width, height)
+{
+	var oaspage= sitepage + pagina +'/1' + RNS + '@' + position;
+
+	if (_version < 11) {
+	document.write ('<A HREF="' + oas + 'click_nx.cgi/'+ oaspage + '" TARGET="_top" ><IMG SRC="' + oas + 'adstream_nx.cgi/' + oaspage + '" BORDER="0" WIDTH="' + width + '" HEIGHT="' + height + '"></a>');
+	}
+	else
+	{
+		document.write ('<'+'SCRIPT LANGUAGE="JavaScript1.1" SRC="' + oas + 'adstream_jx.cgi/' + oaspage + '">');
+		document.write ('\<\!-- --\>');
+		document.write ('\<\/SCRIPT\>');
+		document.write ('\<\!-- --\>');
+	}
+}
+// -->
+</SCRIPT>
+
+
+<!-- # end OAS function definition # -->
+<SCRIPT LANGUAGE=javascript>
+<!--
+var browser, version;
+var status = 1;
+var toc = new Array();
+browser = navigator.appName;
+version = parseInt(navigator.appVersion);
+if (browser == "Netscape" && version >= 3) status = 0;
+else if (browser == "Microsoft Internet Explorer" && version >= 4) status = 0;
+function item(off, over)
+{
+if (status) return;
+this.off = new Image(); this.off.src = off;
+this.over = new Image(); this.over.src = over;
+}
+function cache(id, off, over)
+{
+if (status) return;
+item[id] = new item(off, over);
+toc[toc.length] = id;
+}
+function over(id)
+{
+if (status) return;
+document[id].src = item[id].over.src;
+}
+function out(id)
+{
+if (status) return;
+document[id].src = item[id].off.src;
+}
+cache("inicio", "home1.jpg", "home2.jpg");
+cache("arbol", "tree1.jpg", "tree2.jpg");
+cache("apelli", "surnames1.jpg", "surnames2.jpg");
+cache("histo", "history1.jpg", "history2.jpg");
+cache("sitio", "links1.jpg", "links2.jpg");
+cache("libro", "book1.jpg", "book2.jpg");
+cache("correo", "email1.jpg", "email2.jpg");
+//-->
+</SCRIPT>
+<title>Genealogy</title>
+</head>
+<H3>Index</H3></P>
+
+<BODY bgcolor="#000088" text="#FFFFFF" vlink="#0000AA">
+<table width=475 border="0" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td width=475 colspan="3"><SCRIPT LANGUAGE="JavaScript"> DisplayAds ("notasinformatica","Top", "468", "60"); </SCRIPT> </td>
+	</tr>
+	<tr>
+		<td width=126 valign="top" rowspan="1">
+				<A href="derech_i.html" Target="principal" ONMOUSEOVER=over('inicio') ONMOUSEOUT=out('inicio')><img src="home1.jpg" width=80 height=25 border=0 alt="Home Page" NAME="inicio"></a>
+				<A href="S_index.html" Target="_blank" ONMOUSEOVER=over('arbol') ONMOUSEOUT=out('arbol')><img src="tree1.jpg" width=80 height=25 border=0 alt="Genealogy Tree view" NAME="arbol"></a>
+				<A href="left.html" Target="_blank" ONMOUSEOVER=over('apelli') ONMOUSEOUT=out('apelli')><img src="surnames1.jpg" width=80 height=25 border=0 alt="List in alphabetical order" NAME="apelli"></a>
+				<A href="Histor_I.html" Target="principal" ONMOUSEOVER=over('histo') ONMOUSEOUT=out('histo')><img src="history1.jpg" width=80 height=25 border=0 alt="Brief history of my ancestors" NAME="histo"></a>
+				<A href="Links_I.html" Target="principal" ONMOUSEOVER=over('sitio') ONMOUSEOUT=out('sitio')><img src="links1.jpg" width=80 height=25 border=0 alt="Other sites of interest" NAME="sitio"></a>
+				<A href="libro_I.html" Target="principal" ONMOUSEOVER=over('libro') ONMOUSEOUT=out('libro')><img src="book1.jpg" width=80 height=25 alt="Read or write my Guest Book" border=0 NAME="libro"></a>
+				<A href="mailto:edu_wagner@yahoo.com.ar" Target="principal" ONMOUSEOVER=over('correo') ONMOUSEOUT=out('correo')><img src="email1.jpg" width=80 height=25 alt="Contacts or suggestions, send e-mail" border=0 NAME="correo"></a>
+		</td>
+	</tr>
+</table>
+</HEAD>
+</BODY>
+</HTML>
