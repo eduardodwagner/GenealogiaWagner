@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://sitemaps.org">
+  
+  <!-- Tu página de inicio -->
+  <url>
+    <loc>https://https://eduardodwagner.github.io/GenealogiaWagner/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Página de un apellido específico -->
+  <url>
+    <loc>https://https://eduardodwagner.github.io/GenealogiaWagner/S_index.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
