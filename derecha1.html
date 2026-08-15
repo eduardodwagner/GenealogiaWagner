@@ -43,17 +43,53 @@
 </font>
 <br>
 
-<!-- Contador de visitas -->
-<div style="text-align: center; width: 100%;">
-    <div id="sfcr5ax5pgxq2s634j12nlwm4y4w96417sd" style="transform: scale(0.75); transform-origin: center center; display: inline-block;"></div>
-    <script type="text/javascript" src="https://counter11.optistats.ovh/private/counter.js?c=r5ax5pgxq2s634j12nlwm4y4w96417sd&down=async" async></script>
-    <noscript>
-        <a href="https://www.contadorvisitasgratis.com" title="contadores de visitas para blog">
-            <img src="https://counter11.optistats.ovh/private/contadorvisitasgratis.php?c=r5ax5pgxq2s634j12nlwm4y4w96417sd" border="0" title="contadores de visitas para blog" alt="contadores de visitas para blog" style="max-height: 25px; display: inline-block;">
-        </a>
-    </noscript>
+<!-- INICIO CONTADOR DE VISITAS DEFINITIVO V2 CON BASE -->
+<div style="text-align: center; margin-top: 20px; font-family: Arial, sans-serif; color: #FFFFFF; font-size: 14px;">
+  <!-- Caja visual del número con texto integrado -->
+  <span id="caja-contador" style="background: #000000; padding: 5px 12px; border-radius: 4px; font-weight: bold; border: 1px solid #FFFFFF; font-size: 16px;">
+    Visitante Nro. <span id="numero-contador" style="letter-spacing: 2px;">Cargando...</span>
+  </span>
 </div>
-<!-- Fin Contador de visitas -->
+
+<script>
+async function iniciarContador() {
+  const miGrupo = "eduardo_wagner";
+  const miContador = "genealogia_wagner_2026"; 
+  
+  // NÚMERO BASE DE ARRANQUE (Cambiá este número si querés empezar con otro valor)
+  const visitasPreviasAcumuladas = 52; 
+  
+  const yaVisiteLaWeb = localStorage.getItem('contador_ignorar_dueno');
+  
+  let urlAPI = `https://counterapi.dev{miGrupo}/${miContador}/up`;
+  
+  if (yaVisiteLaWeb) {
+    urlAPI = `https://counterapi.dev{miGrupo}/${miContador}`;
+  }
+
+  try {
+    const respuesta = await fetch(urlAPI);
+    const datos = await respuesta.json();
+    
+    const visitasServidor = datos.value || (datos.data && datos.data.value) || 0;
+    
+    // Sumamos la base anterior con el conteo en tiempo real del servidor
+    const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
+    
+    // Inserta el número final formateado en su lugar correspondiente
+    document.getElementById('numero-contador').innerText = visitasTotales.toLocaleString();
+    
+    localStorage.setItem('contador_ignorar_dueno', 'true');
+  } catch (error) {
+    // Si la API falla, muestra al menos el número base para resguardo
+    document.getElementById('numero-contador').innerText = visitasPreviasAcumuladas.toLocaleString();
+    console.error("Error cargando el contador:", error);
+  }
+}
+
+iniciarContador();
+</script>
+<!-- FIN CONTADOR DE VISITAS DEFINITIVO V2 CON BASE -->
 
 </body>
 </html>
