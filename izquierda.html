@@ -1,111 +1,88 @@
 <HTML>
 <HEAD>
-<!-- ubicar aqui para que no aparezca el banner  -->
-
-
 <TITLE>Indice</TITLE>
-<!-- ##### begin OAS browser test ##### -->
-<SCRIPT LANGUAGE="JavaScript"> <!-- 
-_version=10; //--> </SCRIPT>
-<SCRIPT LANGUAGE="JavaScript1.1"> <!--
-_version=11;
-if (navigator.userAgent.indexOf('Mozilla/3') != -1){
-_version=10;} 
-// --> 
-</SCRIPT>
-
-<SCRIPT LANGUAGE="JavaScript"> <!-- 
-
-<!-- here are oas site, page, and random number variables  -->
-var oas='http://www.rootsweb.com/genealogy';
-var sitepage = "www.rootsweb.com/";
-var RN = new String (Math.random());
-var RNS = RN.substring (2, 11);
-
-<!-- here is the ad insertion function -->
-function DisplayAds (pagina, position, width, height)
-{
-	var oaspage= sitepage + pagina +'/1' + RNS + '@' + position;
-
-	if (_version < 11) {
-	document.write ('<A HREF="' + oas + 'click_nx.cgi/'+ oaspage + '" TARGET="_top" ><IMG SRC="' + oas + 'adstream_nx.cgi/' + oaspage + '" BORDER="0" WIDTH="' + width + '" HEIGHT="' + height + '"></a>');
-	}
-	else
-	{
-		document.write ('<'+'SCRIPT LANGUAGE="JavaScript1.1" SRC="' + oas + 'adstream_jx.cgi/' + oaspage + '">');
-		document.write ('\<\!-- --\>');
-		document.write ('\<\/SCRIPT\>');
-		document.write ('\<\!-- --\>');
-	}
-}
-// -->
-</SCRIPT>
-
-
-<!-- # end OAS function definition # -->
-<SCRIPT LANGUAGE=javascript>
-<!--
-var browser, version;
-var status = 1;
-var toc = new Array();
-browser = navigator.appName;
-version = parseInt(navigator.appVersion);
-if (browser == "Netscape" && version >= 3) status = 0;
-else if (browser == "Microsoft Internet Explorer" && version >= 4) status = 0;
-function item(off, over)
-{
-if (status) return;
-this.off = new Image(); this.off.src = off;
-this.over = new Image(); this.over.src = over;
-}
-function cache(id, off, over)
-{
-if (status) return;
-item[id] = new item(off, over);
-toc[toc.length] = id;
-}
-function over(id)
-{
-if (status) return;
-document[id].src = item[id].over.src;
-}
-function out(id)
-{
-if (status) return;
-document[id].src = item[id].off.src;
-}
-cache("inicio", "inicio1.jpg", "inicio2.jpg");
-cache("arbol", "arbol1.jpg", "arbol2.jpg");
-cache("apelli", "apelli1.jpg", "apelli2.jpg");
-cache("histo", "histo1.jpg", "histo2.jpg");
-cache("sitio", "sitio1.jpg", "sitio2.jpg");
-cache("libro", "libro1.jpg", "libro2.jpg");
-cache("correo", "correo1.jpg", "correo2.jpg");
-//-->
-</SCRIPT>
 <title>Genealogia de Eduardo Daniel Wagner</title>
-</head>
-<CENTER>
-<H3>Indice</H3></P>
-</CENTER>
+
+<style>
+/* --- ESTILOS MODERNOS PARA EL MENÚ --- */
+/* Creamos un contenedor para cada botón */
+.boton-contenedor {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 25px;
+}
+
+/* La imagen "over" (la que cambia) se oculta por defecto */
+.boton-contenedor .img-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.2s; /* Hace que el cambio sea suave */
+}
+
+/* Cuando pasás el mouse por arriba del enlace, se muestra la imagen "over" */
+.boton-contenedor:hover .img-over {
+    opacity: 1;
+}
+</style>
+
+</HEAD>
 
 <BODY bgcolor="#000088" text="#FFFFFF" LINK="yellow" VLINK="white">
-<table width=125 border="0" cellpadding="0" cellspacing="0" border="0">
+
+<CENTER>
+<H3>Indice</H3>
+</CENTER>
+
+<table width=125 border="0" cellpadding="0" cellspacing="0">
 	<tr>
-		<td width=475 colspan="3"><SCRIPT LANGUAGE="JavaScript"> DisplayAds ("notasinformatica","Top", "468", "60"); </SCRIPT> </td>
-	</tr>
-	<tr>
-		<td width=126 valign="top" rowspan="1">
-				<A href="derecha1.html" Target="principal" ONMOUSEOVER=over('inicio') ONMOUSEOUT=out('inicio')><img src="inicio1.jpg" width=80 height=25 border=0 alt="Página de Inicio" NAME="inicio"></a>
-				<A href="S_index.html" Target="_blank" ONMOUSEOVER=over('arbol') ONMOUSEOUT=out('arbol')><img src="arbol1.jpg" width=80 height=25 border=0 alt="Ver Arbol Genealógico" NAME="arbol"></a>
-				<A href="left.html" Target="_blank" ONMOUSEOVER=over('apelli') ONMOUSEOUT=out('apelli')><img src="apelli1.jpg" width=80 height=25 border=0 alt="Apellidos por orden alfabético" NAME="apelli"></a>
-				<A href="bhistoria.html" Target="principal" ONMOUSEOVER=over('histo') ONMOUSEOUT=out('histo')><img src="histo1.jpg" width=80 height=25 border=0 alt="Breve historia de mis ancestros" NAME="histo"></a>
-				<A href="PagSitio.html" Target="principal" ONMOUSEOVER=over('sitio') ONMOUSEOUT=out('sitio')><img src="sitio1.jpg" width=80 height=25 border=0 alt="Sitios relacionados" NAME="sitio"></a>
-				<A href="Libro.html" Target="principal" ONMOUSEOVER=over('libro') ONMOUSEOUT=out('libro')><img src="libro1.jpg" width=80 height=25 alt="Libro de Visitas" border=0 NAME="libro"></a>
-				<A href="mailto:edu_wagner@yahoo.com.ar" Target="principal" ONMOUSEOVER=over('correo') ONMOUSEOUT=out('correo')><img src="correo1.jpg" width=80 height=25 alt="Para contactos o sugerencias, enviar E-mail" border=0 NAME="correo"></a>
+		<td width=126 valign="top">
+				<!-- BOTÓN INICIO -->
+				<A href="derecha1.html" Target="principal" class="boton-contenedor">
+					<img src="inicio1.jpg" width=80 height=25 border=0 alt="Página de Inicio">
+					<img src="inicio2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
+				
+				<!-- BOTÓN ARBOL -->
+				<A href="S_index.html" Target="_blank" class="boton-contenedor">
+					<img src="arbol1.jpg" width=80 height=25 border=0 alt="Ver Arbol Genealógico">
+					<img src="arbol2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
+				
+				<!-- BOTÓN APELLIDOS -->
+				<A href="left.html" Target="_blank" class="boton-contenedor">
+					<img src="apelli1.jpg" width=80 height=25 border=0 alt="Apellidos por orden alfabético">
+					<img src="apelli2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
+				
+				<!-- BOTÓN HISTORIA -->
+				<A href="bhistoria.html" Target="principal" class="boton-contenedor">
+					<img src="histo1.jpg" width=80 height=25 border=0 alt="Breve historia de mis ancestros">
+					<img src="histo2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
+				
+				<!-- BOTÓN SITIO -->
+				<A href="PagSitio.html" Target="principal" class="boton-contenedor">
+					<img src="sitio1.jpg" width=80 height=25 border=0 alt="Sitios relacionados">
+					<img src="sitio2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
+				
+				<!-- BOTÓN LIBRO -->
+				<A href="Libro.html" Target="principal" class="boton-contenedor">
+					<img src="libro1.jpg" width=80 height=25 border=0 alt="Libro de Visitas">
+					<img src="libro2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
+				
+				<!-- BOTÓN CORREO -->
+				<A href="mailto:edu_wagner@yahoo.com.ar" Target="principal" class="boton-contenedor">
+					<img src="correo1.jpg" width=80 height=25 border=0 alt="Para contactos o sugerencias, enviar E-mail">
+					<img src="correo2.jpg" width=80 height=25 border=0 class="img-over">
+				</a>
 		</td>
 	</tr>
 </table>
-</HEAD>
+
 </BODY>
 </HTML>
