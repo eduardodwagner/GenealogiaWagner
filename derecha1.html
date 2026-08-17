@@ -72,46 +72,50 @@
   </div>
 </div>
 
-<script>
-async function iniciarContador() {
-  const miGrupo = "eduardo_wagner";
-  const miContador = "genealogia_wagner_2026"; 
-  const visitasPreviasAcumuladas = 0; 
-  
-  // Control de recargas: evita duplicar visitas en la misma sesión
-  const yaContado = sessionStorage.getItem('web_visitada');
-  
-  // Estructura limpia y directa para la API v2 pública de CounterAPI
-  const urlBase = `https://counterapi.dev{miGrupo}/counters/${miContador}`;
-  const urlAPI = yaContado ? urlBase : `${urlBase}/up`;
+<script type="module">
+  // Importamos la librería nativa y oficial de CounterAPI v2
+  import { Counter } from 'https://cdn.jsdelivr.net/npm/counterapi/dist/counter.esm.min.js';
 
-  try {
-    // Si no ha sido contado, se envía la petición de incremento ("up")
-    const respuesta = await fetch(urlAPI);
-    if (!respuesta.ok) throw new Error("Error en servidor V2");
-    
-    const datos = await respuesta.json();
-    
-    // Extracción limpia del valor según la respuesta JSON oficial de CounterAPI v2
-    const visitasServidor = datos.counter?.value || datos.value || 0;
-    const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
-    
-    document.getElementById('numero-contador').innerText = visitasTotales.toLocaleString();
-    
-    if (!yaContado) {
-      sessionStorage.setItem('web_visitada', 'true');
+  async function iniciarContador() {
+    // Configuración oficial del espacio de trabajo
+    const counter = new Counter({
+      workspace: 'eduardo_wagner'
+    });
+
+    const nombreContador = 'genealogia_wagner_2026';
+    const visitasPreviasAcumuladas = 0; // Se mantiene en 0 como pediste
+
+    // Control de recargas de página
+    const yaContado = sessionStorage.getItem('web_visitada');
+
+    try {
+      let resultado;
+
+      if (yaContado) {
+        // Si el usuario ya entró en esta sesión, solo LEE el valor actual sin sumar
+        resultado = await counter.get(nombreContador);
+      } else {
+        // Si es una visita nueva, SUMA +1 en el servidor
+        resultado = await counter.up(nombreContador);
+        sessionStorage.setItem('web_visitada', 'true');
+      }
+
+      // En v2 el valor viene directamente en '.value'
+      const visitasServidor = resultado?.value || 0;
+      const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
+
+      document.getElementById('numero-contador').innerText = visitasTotales.toLocaleString();
+
+    } catch (error) {
+      document.getElementById('numero-contador').innerText = visitasPreviasAcumuladas.toLocaleString();
+      console.error("Error oficial CounterAPI v2:", error.message);
     }
-  } catch (error) {
-    document.getElementById('numero-contador').innerText = visitasPreviasAcumuladas.toLocaleString();
-    console.error("Error cargando el contador V2:", error);
   }
-}
 
-iniciarContador();
+  // Ejecutar al cargar la página
+  document.addEventListener('DOMContentLoaded', iniciarContador);
 </script>
 <!-- FIN CONTADOR DE VISITAS DEFINITIVO V3 -->
-
-
 
 </body>
 </html>
