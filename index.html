@@ -1,15 +1,99 @@
-<HTML>
-   <HEAD>
-	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
-	<META NAME="keywords" CONTENT="Genealogy,Genealog�a,Wagner,Alemanes del Volga,German from Russia">
-	<META NAME="Generator" CONTENT="Microsoft Word 97">
-	<TITLE>Genealogia de Eduardo Daniel Wagner, Alemanes del Volga</TITLE>
-  </HEAD>
- <frameset framespacing="0" border="0" rows="68,*" frameborder="0" bgcolor="white">
-   <frame name="banner" scrolling="no" noresize target="contents" src="bann.jpg" width="35" marginwidth="12" marginheight="1">
-	<frameset frameborder="1" cols="135,*">
-	   <FRAME SRC="izquierda.html">
-	   <FRAME SRC="derecha1.html" NAME="principal">
-	</FRAMESET>
-  </FRAMESET>
-</HTML>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Genealogy,Genealogía,Wagner,Alemanes del Volga,German from Russia">
+    <title>Genealogía de Eduardo Daniel Wagner, Alemanes del Volga</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        /* Banner superior */
+        .banner-container {
+            width: 100%;
+            height: 68px; /* Mantiene el tamaño original de tu banner */
+            overflow: hidden;
+        }
+        .banner-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Contenedor principal flexible (Divide menú y contenido) */
+        .contenido-web {
+            display: flex;
+            flex-direction: row; /* En PC se ven uno al lado del otro */
+            min-height: calc(100vh - 68px);
+        }
+
+        /* Espacio para el menú izquierdo (izquierda.html) */
+        .columna-izquierda {
+            width: 135px; /* Mantiene el ancho exacto que tenías */
+            min-width: 135px;
+            border-right: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Espacio para la página principal (derecha1.html) */
+        .columna-derecha {
+            flex-grow: 1;
+            box-sizing: border-box;
+        }
+
+        /* El iframe ahora es moderno y ocupa el 100% de su espacio asignado */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* MÓVILES: Si la pantalla es menor a 768px de ancho, se activa esto automáticamente */
+        @media (max-width: 768px) {
+            .contenido-web {
+                flex-direction: column; /* En celular se apilan: menú arriba, contenido abajo */
+            }
+            .columna-izquierda {
+                width: 100%; /* El menú ocupa todo el ancho en el celular */
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+            }
+            .columna-derecha {
+                width: 100%;
+                height: calc(100vh - 68px - 150px); /* Ajusta el espacio para que no tape el menú */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Banner Superior -->
+    <div class="banner-container">
+        <img src="bann.jpg" alt="Banner Genealogía Wagner">
+    </div>
+
+    <!-- Contenedor Flexible -->
+    <div class="contenido-web">
+        
+        <!-- Columna Izquierda (Menú) -->
+        <div class="columna-izquierda">
+            <iframe src="izquierda.html" name="menu"></iframe>
+        </div>
+
+        <!-- Columna Derecha (Contenido principal) -->
+        <div class="columna-derecha">
+            <iframe src="derecha1.html" name="principal"></iframe>
+        </div>
+
+    </div>
+
+</body>
+</html>
