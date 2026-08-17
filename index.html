@@ -14,16 +14,18 @@
             background-color: white;
         }
 
-        /* Banner superior */
+         /* Banner superior */
         .banner-container {
             width: 100%;
             height: 68px; /* Mantiene el tamaño original de tu banner */
             overflow: hidden;
+            background-color: white; /* Evita bordes vacíos si la imagen se achica */
         }
         .banner-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* CAMBIO: Ahora la imagen se encoge entera sin cortarse */
+            object-position: center; /* Mantiene la imagen centrada */
         }
 
         /* Contenedor principal flexible (Divide menú y contenido) */
@@ -57,18 +59,27 @@
 
         /* MÓVILES: Si la pantalla es menor a 768px de ancho, se activa esto automáticamente */
         @media (max-width: 768px) {
+            /* CAMBIO OPCIONAL: Si el banner queda muy bajito en celular, puedes cambiar el alto aquí */
+            .banner-container {
+                height: auto; /* Permite que el banner adapte su altura proporcionalmente en el celular */
+            }
+            .banner-container img {
+                height: auto;
+            }
+            
             .contenido-web {
                 flex-direction: column; /* En celular se apilan: menú arriba, contenido abajo */
+                min-height: auto;
             }
             .columna-izquierda {
                 width: 100%; /* El menú ocupa todo el ancho en el celular */
-                height: auto;
+                height: 150px; /* Le asignamos un alto fijo al menú para que no colapse */
                 border-right: none;
                 border-bottom: 1px solid #ccc;
             }
             .columna-derecha {
                 width: 100%;
-                height: calc(100vh - 68px - 150px); /* Ajusta el espacio para que no tape el menú */
+                height: 60vh; /* Le damos una altura cómoda al contenido en celulares */
             }
         }
     </style>
