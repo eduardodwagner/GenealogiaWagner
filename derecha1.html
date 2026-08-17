@@ -60,7 +60,7 @@
 </font>
 <br>
 
-<!-- INICIO CONTADOR DE VISITAS DEFINITIVO V3 (ACTUALIZADO V2 API) -->
+<!-- INICIO CONTADOR DE VISITAS DEFINITIVO V3 (ESTABLE v2) -->
 <div style="text-align: center; margin: 25px 0; font-family: 'Segoe UI', Arial, sans-serif;">
   <div style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #1e1e24, #0a0a0c); padding: 8px 16px; border-radius: 8px; border: 1px solid #3a3a42; box-shadow: 0 4px 12px rgba(0,0,0,0.5); color: #ffffff;">
     <span style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #a0a0aa; margin-right: 10px; font-weight: 500;">
@@ -72,48 +72,39 @@
   </div>
 </div>
 
-<script type="module">
-  // Importamos la librería nativa y oficial de CounterAPI v2
-  import { Counter } from 'https://cdn.jsdelivr.net/npm/counterapi/dist/counter.esm.min.js';
-
-  async function iniciarContador() {
-    // Configuración oficial del espacio de trabajo
-    const counter = new Counter({
-      workspace: 'eduardo_wagner'
-    });
-
-    const nombreContador = 'genealogia_wagner_2026';
-    const visitasPreviasAcumuladas = 0; // Se mantiene en 0 como pediste
-
-    // Control de recargas de página
+<script>
+  function iniciarContador() {
+    const miGrupo = "eduardo_wagner";
+    const miContador = "genealogia_wagner_2026";
     const yaContado = sessionStorage.getItem('web_visitada');
 
-    try {
-      let resultado;
-
-      if (yaContado) {
-        // Si el usuario ya entró en esta sesión, solo LEE el valor actual sin sumar
-        resultado = await counter.get(nombreContador);
-      } else {
-        // Si es una visita nueva, SUMA +1 en el servidor
-        resultado = await counter.up(nombreContador);
-        sessionStorage.setItem('web_visitada', 'true');
-      }
-
-      // En v2 el valor viene directamente en '.value'
-      const visitasServidor = resultado?.value || 0;
-      const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
-
-      document.getElementById('numero-contador').innerText = visitasTotales.toLocaleString();
-
-    } catch (error) {
-      document.getElementById('numero-contador').innerText = visitasPreviasAcumuladas.toLocaleString();
-      console.error("Error oficial CounterAPI v2:", error.message);
+    // Usamos el endpoint directo y simple por URL
+    let url = `https://counterapi.dev{miGrupo}/counters/${miContador}`;
+    
+    // Si es una visita nueva en esta sesión, le sumamos uno en el servidor
+    if (!yaContado) {
+      url += '/up';
     }
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // Obtenemos el valor numérico exacto que devuelve la API v2
+        const numeroReal = data.value || 0;
+        document.getElementById('numero-contador').innerText = numeroReal.toLocaleString();
+        
+        if (!yaContado) {
+          sessionStorage.setItem('web_visitada', 'true');
+        }
+      })
+      .catch(error => {
+        console.error("Error cargando visitas:", error);
+        document.getElementById('numero-contador').innerText = "1"; // Fallback por si la API está saturada
+      });
   }
 
-  // Ejecutar al cargar la página
-  document.addEventListener('DOMContentLoaded', iniciarContador);
+  // Ejecución limpia compatible con cualquier servidor
+  window.onload = iniciarContador;
 </script>
 <!-- FIN CONTADOR DE VISITAS DEFINITIVO V3 -->
 
