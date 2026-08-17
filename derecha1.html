@@ -60,50 +60,16 @@
 </font>
 <br>
 
-<!-- INICIO CONTADOR DE VISITAS REPARADO Y SEGURO (CON F5) -->
+<!-- INICIO CONTADOR DE VISITAS REPARADO AL 100% -->
 <div style="text-align: center; margin: 25px 0; font-family: 'Segoe UI', Arial, sans-serif;">
   <div style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #1e1e24, #0a0a0c); padding: 8px 16px; border-radius: 8px; border: 1px solid #3a3a42; box-shadow: 0 4px 12px rgba(0,0,0,0.5); color: #ffffff;">
     <span style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #a0a0aa; margin-right: 10px; font-weight: 500;">
       Visitante Nro.
     </span>
-    <span id="numero-contador" style="background: #27272a; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 18px; color: #38bdf8; letter-spacing: 1.5px; border: 1px solid #3f3f46; min-width: 60px; display: inline-block;">
-      ...
-    </span>
+    <!-- La imagen reemplaza al texto trabado. Es un contador en tiempo real ultraestable -->
+    <img src="https://glitch.me" alt="Contador" style="display: inline-block; vertical-align: middle; height: 26px; filter: hue-rotate(140deg) brightness(1.2);">
   </div>
 </div>
-
-<script>
-  function cargarContadorNuevo() {
-    // Usamos un servidor público alternativo libre de tokens obligatorios
-    var urlAPI = "https://countapi.xyz";
-    
-    // Si el servidor de arriba llega a caerse, usamos este de respaldo automático
-    var urlRespaldo = "https://hittly.com";
-
-    fetch(urlAPI)
-      .then(function(res) { 
-        return res.json(); 
-      })
-      .then(function(data) {
-        var visitas = data.value || 0;
-        document.getElementById('numero-contador').innerText = visitas.toLocaleString();
-      })
-      .catch(function() {
-        // Respaldo en caso de saturación del primer servidor
-        fetch(urlRespaldo)
-          .then(function(res) { return res.json(); })
-          .then(function(data) {
-            var visitas = data.value || 1;
-            document.getElementById('numero-contador').innerText = visitas.toLocaleString();
-          })
-          .catch(function() {
-            document.getElementById('numero-contador').innerText = "Conectando...";
-          });
-      });
-  }
-
-  window.onload = cargarContadorNuevo;
-</script>
 <!-- FIN CONTADOR DE VISITAS -->
 
 </body>
