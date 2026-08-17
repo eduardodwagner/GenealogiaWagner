@@ -60,48 +60,58 @@
 </font>
 <br>
 
-<!-- INICIO CONTADOR DE VISITAS DEFINITIVO V2 CON BASE -->
-<div style="text-align: center; margin-top: 20px; font-family: Arial, sans-serif; color: #FFFFFF; font-size: 14px;">
-  <!-- Caja visual del número con texto integrado -->
-  <span id="caja-contador" style="background: #000000; padding: 5px 12px; border-radius: 4px; font-weight: bold; border: 1px solid #FFFFFF; font-size: 16px;">
-    Visitante Nro. <span id="numero-contador" style="letter-spacing: 2px;">Cargando...</span>
-  </span>
+<!-- INICIO CONTADOR DE VISITAS DEFINITIVO V3 (ACTUALIZADO V2 API) -->
+<div style="text-align: center; margin: 25px 0; font-family: 'Segoe UI', Arial, sans-serif;">
+  <div style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #1e1e24, #0a0a0c); padding: 8px 16px; border-radius: 8px; border: 1px solid #3a3a42; box-shadow: 0 4px 12px rgba(0,0,0,0.5); color: #ffffff;">
+    <span style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #a0a0aa; margin-right: 10px; font-weight: 500;">
+      Visitante Nro.
+    </span>
+    <span id="numero-contador" style="background: #27272a; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 18px; color: #38bdf8; letter-spacing: 1.5px; border: 1px solid #3f3f46; min-width: 60px; display: inline-block;">
+      ...
+    </span>
+  </div>
 </div>
 
 <script>
 async function iniciarContador() {
   const miGrupo = "eduardo_wagner";
   const miContador = "genealogia_wagner_2026"; 
-  
-  // NÚMERO BASE DE ARRANQUE (Cambiá este número si querés empezar con otro valor)
   const visitasPreviasAcumuladas = 52; 
   
-  // Modificado: Ahora siempre llama a /up para sumar +1 en cada recarga
-  const urlAPI = `https://counterapi.dev{miGrupo}/${miContador}/up`;
+  // Control de recargas: solo suma +1 si es una nueva sesión de navegación
+  const yaContado = sessionStorage.getItem('web_visitada');
+  
+  // NUEVA URL OFICIAL V2: Se utiliza la estructura '/v2/namespaces/.../counters/.../'
+  let urlAPI = `https://counterapi.dev{miGrupo}/counters/${miContador}/`;
+  urlAPI += yaContado ? '' : 'increment'; // 'increment' equivale al viejo 'up'
 
   try {
-    const respuesta = await fetch(urlAPI);
+    // Si ya fue contado, la API de CounterAPI V2 usa el método GET directo a la URL para solo leer
+    const metodo = yaContado ? 'GET' : 'POST'; 
+    
+    const respuesta = await fetch(urlAPI, { method: metodo });
+    if (!respuesta.ok) throw new Error("Error en servidor V2");
+    
     const datos = await respuesta.json();
     
-    // Extrae el valor según el formato de CounterAPI
-    const visitasServidor = datos.value || 0;
-    
-    // Sumamos la base anterior con el conteo en tiempo real del servidor
+    // En la nueva API V2, el valor viene dentro de datos.counter.value
+    const visitasServidor = datos.counter?.value || 0;
     const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
     
-    // Inserta el número final formateado en su lugar correspondiente
     document.getElementById('numero-contador').innerText = visitasTotales.toLocaleString();
+    
+    if (!yaContado) {
+      sessionStorage.setItem('web_visitada', 'true');
+    }
   } catch (error) {
-    // Si la API falla, muestra al menos el número base para resguardo
     document.getElementById('numero-contador').innerText = visitasPreviasAcumuladas.toLocaleString();
-    console.error("Error cargando el contador:", error);
+    console.error("Error cargando el contador V2:", error);
   }
 }
 
 iniciarContador();
 </script>
-<!-- FIN CONTADOR DE VISITAS DEFINITIVO V2 CON BASE -->
-
+<!-- FIN CONTADOR DE VISITAS DEFINITIVO V3 -->
 
 </body>
 </html>
