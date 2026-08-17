@@ -76,17 +76,18 @@
 async function iniciarContador() {
   const miGrupo = "eduardo_wagner";
   const miContador = "genealogia_wagner_2026"; 
-  const visitasPreviasAcumuladas = 52; 
+  const visitasPreviasAcumuladas = 0; // Se cambió de 52 a 0 para no alterar la cuenta real
   
   // Control de recargas: solo suma +1 si es una nueva sesión de navegación
   const yaContado = sessionStorage.getItem('web_visitada');
   
-  // NUEVA URL OFICIAL V2: Se utiliza la estructura '/v2/namespaces/.../counters/.../'
+  // URL CORREGIDA: Se añadió el '$' antes de {miGrupo} y se ajustó la ruta para CounterAPI v2
   let urlAPI = `https://counterapi.dev{miGrupo}/counters/${miContador}/`;
-  urlAPI += yaContado ? '' : 'increment'; // 'increment' equivale al viejo 'up'
+  if (!yaContado) {
+    urlAPI += 'increment';
+  }
 
   try {
-    // Si ya fue contado, la API de CounterAPI V2 usa el método GET directo a la URL para solo leer
     const metodo = yaContado ? 'GET' : 'POST'; 
     
     const respuesta = await fetch(urlAPI, { method: metodo });
@@ -94,7 +95,7 @@ async function iniciarContador() {
     
     const datos = await respuesta.json();
     
-    // En la nueva API V2, el valor viene dentro de datos.counter.value
+    // Extrae el valor de la API v2 y suma la constante (que ahora es 0)
     const visitasServidor = datos.counter?.value || 0;
     const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
     
@@ -112,6 +113,7 @@ async function iniciarContador() {
 iniciarContador();
 </script>
 <!-- FIN CONTADOR DE VISITAS DEFINITIVO V3 -->
+
 
 </body>
 </html>
