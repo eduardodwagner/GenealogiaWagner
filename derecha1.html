@@ -59,14 +59,8 @@ async function iniciarContador() {
   // NÚMERO BASE DE ARRANQUE (Cambiá este número si querés empezar con otro valor)
   const visitasPreviasAcumuladas = 52; 
   
-  const yaVisiteLaWeb = localStorage.getItem('contador_ignorar_dueno');
-  
-  // CORREGIDO: Se agregó el $ antes de las llaves y la barra / después de .dev
-  let urlAPI = `https://counterapi.dev{miGrupo}/${miContador}/up`;
-  
-  if (yaVisiteLaWeb) {
-    urlAPI = `https://counterapi.dev{miGrupo}/${miContador}`;
-  }
+  // Modificado: Ahora siempre llama a /up para sumar +1 en cada recarga
+  const urlAPI = `https://counterapi.dev{miGrupo}/${miContador}/up`;
 
   try {
     const respuesta = await fetch(urlAPI);
@@ -80,8 +74,6 @@ async function iniciarContador() {
     
     // Inserta el número final formateado en su lugar correspondiente
     document.getElementById('numero-contador').innerText = visitasTotales.toLocaleString();
-    
-    localStorage.setItem('contador_ignorar_dueno', 'true');
   } catch (error) {
     // Si la API falla, muestra al menos el número base para resguardo
     document.getElementById('numero-contador').innerText = visitasPreviasAcumuladas.toLocaleString();
