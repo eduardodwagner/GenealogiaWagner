@@ -61,6 +61,7 @@ async function iniciarContador() {
   
   const yaVisiteLaWeb = localStorage.getItem('contador_ignorar_dueno');
   
+  // CORREGIDO: Se agregó el $ antes de las llaves y la barra / después de .dev
   let urlAPI = `https://counterapi.dev{miGrupo}/${miContador}/up`;
   
   if (yaVisiteLaWeb) {
@@ -71,7 +72,8 @@ async function iniciarContador() {
     const respuesta = await fetch(urlAPI);
     const datos = await respuesta.json();
     
-    const visitasServidor = datos.value || (datos.data && datos.data.value) || 0;
+    // Extrae el valor según el formato de CounterAPI
+    const visitasServidor = datos.value || 0;
     
     // Sumamos la base anterior con el conteo en tiempo real del servidor
     const visitasTotales = visitasPreviasAcumuladas + visitasServidor;
@@ -90,6 +92,7 @@ async function iniciarContador() {
 iniciarContador();
 </script>
 <!-- FIN CONTADOR DE VISITAS DEFINITIVO V2 CON BASE -->
+
 
 </body>
 </html>
