@@ -60,28 +60,47 @@
 </font>
 <br>
 
+<!-- INICIO CONTADOR DE VISITAS DEFINITIVO V3 (ESTABLE v2 - CON F5) -->
+<div style="text-align: center; margin: 25px 0; font-family: 'Segoe UI', Arial, sans-serif;">
+  <div style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #1e1e24, #0a0a0c); padding: 8px 16px; border-radius: 8px; border: 1px solid #3a3a42; box-shadow: 0 4px 12px rgba(0,0,0,0.5); color: #ffffff;">
+    <span style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #a0a0aa; margin-right: 10px; font-weight: 500;">
+      Visitante Nro.
+    </span>
+    <span id="numero-contador" style="background: #27272a; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 18px; color: #38bdf8; letter-spacing: 1.5px; border: 1px solid #3f3f46; min-width: 60px; display: inline-block;">
+      ...
+    </span>
+  </div>
+</div>
+
 <script>
   function iniciarContador() {
     const miGrupo = "eduardo_wagner";
     const miContador = "genealogia_wagner_2026";
-
-    // Llamada directa: Al quitar el filtro, siempre ejecuta '/up' al cargar la página
-    const url = `https://counterapi.dev{miGrupo}/counters/${miContador}/up`;
+    const url = "https://counterapi.dev" + miGrupo + "/counters/" + miContador + "/up";
     
     fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        const numeroReal = data.value || 0;
+      .then(function(respuesta) {
+        return respuesta.json();
+      })
+      .then(function(datos) {
+        var numeroReal = datos.value || (datos.counter && datos.counter.value) || 0;
         document.getElementById('numero-contador').innerText = numeroReal.toLocaleString();
       })
-      .catch(error => {
-        console.error("Error cargando visitas:", error);
+      .catch(function(error) {
+        console.error("Error:", error);
         document.getElementById('numero-contador').innerText = "1";
       });
   }
 
-  window.onload = iniciarContador;
+  // Se ejecuta inmediatamente al terminar de cargar la estructura de la página
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    iniciarContador();
+  } else {
+    document.addEventListener("DOMContentLoaded", iniciarContador);
+  }
 </script>
+<!-- FIN CONTADOR DE VISITAS DEFINITIVO V3 -->
+
 
 </body>
 </html>
